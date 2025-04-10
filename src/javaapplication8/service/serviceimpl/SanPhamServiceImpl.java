@@ -14,31 +14,37 @@ import javaapplication8.dao.SanPhamDao;
  * @author dungc
  */
 public class SanPhamServiceImpl implements SanPhamService {
-
+    
     private final SanPhamDao dao = new SanPhamDao();
-
+    
     @Override
     public List<Model_SanPham> layDanhSachSanPhamDangBan() {
         return dao.getSanPhamDangBan();
     }
-
+    
     @Override
     public List<Model_SanPham> layDanhSachSanPhamNgungBan() {
         return dao.getSanPhamNgungBan();
     }
-
+    
     @Override
     public boolean addSanPham(String masp, String tensp, String mota) {
         return dao.addSanPham(masp, tensp, mota);
     }
-
+    
     @Override
     public boolean kiemTraTenSanPhamDaTonTai(String ten) {
         return dao.kiemTraTenSanPhamDaTonTai(ten);
     }
-
+    
     @Override
     public boolean capNhatSanPham(String ma, String ten, String moTa) {
         return dao.capNhatSanPham(ma, ten, moTa);
     }
+    
+    @Override
+    public boolean updateDaXoaSanPham(int id) {
+        return dao.updateDaXoaSanPham(id);
+    }
+    
 }

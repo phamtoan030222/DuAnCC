@@ -13,4 +13,21 @@ import javaapplication8.model.SanPham_ThuocTinh;
  */
 public interface SanPhamThuocTinhService {
     List<SanPham_ThuocTinh> layDanhSachThuocTinh(String tableName);
+    
+    boolean kiemTraTenThuocTinhDaTonTai(String tableName, String tenThuocTinh);
+    
+    boolean addThuocTinh(String tableName,String ma, String ten);
+    
+        List<SanPham_ThuocTinh> getLoaiSanPham();
+
+    List<SanPham_ThuocTinh> getLoaiMauSac();
+
+    List<SanPham_ThuocTinh> getLoaiKichThuoc();
+
+    List<SanPham_ThuocTinh> getLoaiChatLieu();
+    
+    boolean updateThuocTinh(String tableName, String tenMoi, String ma);
+    
+    boolean xoaThuocTinhSanPham(String tableName, int id);
+    
 }

@@ -6,6 +6,7 @@ package javaapplication8.service;
 
 import java.util.List;
 import javaapplication8.model.SanPham_ChiTiet;
+import javaapplication8.model.SanPham_ThuocTinh;
 
 /**
  *
@@ -13,4 +14,7 @@ import javaapplication8.model.SanPham_ChiTiet;
  */
 public interface SanPhamChiTietService {
     List<SanPham_ChiTiet> getAllSanPhamChiTiet();
+    
+    boolean addSanPhamChiTiet(String ma, int idsp, int idms, int idcl, int idkt, String donGia, int soLuong);
+    
 }

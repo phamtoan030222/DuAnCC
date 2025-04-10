@@ -33,7 +33,7 @@ public class SanPhamChiTietDao {
         ArrayList<SanPham_ChiTiet> list = new ArrayList();
 
         sql = """
-              SELECT San_Pham_Chi_Tiet.ID, San_Pham_Chi_Tiet.MA_SPCT, San_Pham.TEN, Mau_Sac.TEN, Chat_Lieu.TEN, Kich_Thuoc.TEN, San_Pham_Chi_Tiet.DON_GIA, San_Pham_Chi_Tiet.SO_LUONG
+              SELECT San_Pham_Chi_Tiet.ID, San_Pham_Chi_Tiet.MA_SPCT, San_Pham.TEN, Mau_Sac.TEN, Chat_Lieu.TEN, Kich_Thuoc.TEN, FORMAT(San_Pham_Chi_Tiet.Don_Gia, 'N0') + ' VNĐ' , San_Pham_Chi_Tiet.SO_LUONG
               FROM San_Pham_Chi_Tiet 
               JOIN San_Pham ON San_Pham.ID = San_Pham_Chi_Tiet.ID_SAN_PHAM
               JOIN Mau_Sac ON Mau_Sac.ID = San_Pham_Chi_Tiet.ID_MAU_SAC
@@ -72,21 +72,22 @@ public class SanPhamChiTietDao {
         }
     }
 
-    public boolean addSanPhamChiTiet(String ma, String ten, int idsp, int idkt, int idms, int idcl, String donGia, int soLuong) {
-        sql = "insert into San_Pham_Chi_Tiet \n"
-                + "(MA_SPCT, TEN_SP, ID_SAN_PHAM, ID_KICH_THUOC, ID_MAU_SAC, ID_CHAT_LIEU, DON_GIA, SO_LUONG) \n"
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    public boolean addSanPhamChiTiet(String ma, int idsp, int idms, int idcl, int idkt, String donGia, int soLuong) {
+        sql = """
+              insert into San_Pham_Chi_Tiet 
+               ( MA_SPCT, ID_SAN_PHAM, ID_MAU_SAC, ID_CHAT_LIEU, ID_KICH_THUOC, DON_GIA, SO_LUONG) 
+              values ( ?, ?, ?, ?, ?, ?, ?)
+              """;
         try {
             ps = conn.prepareStatement(sql);
 
             ps.setString(1, ma);
-            ps.setString(2, ten);
-            ps.setInt(3, idsp);
-            ps.setInt(4, idkt);
-            ps.setInt(5, idms);
-            ps.setInt(6, idcl);
-            ps.setString(7, donGia);
-            ps.setInt(8, soLuong);
+            ps.setInt(2, idsp);
+            ps.setInt(3, idms);
+            ps.setInt(4, idcl);
+            ps.setInt(5, idkt);
+            ps.setString(6, donGia);
+            ps.setInt(7, soLuong);
 
             return ps.executeUpdate() > 0;//thêm/sửa/xoá:executeUpđate()
         } catch (Exception e) {

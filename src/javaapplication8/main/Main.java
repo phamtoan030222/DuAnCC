@@ -16,10 +16,8 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 public class Main extends javax.swing.JFrame {
-    /**
-     * Tạo form
-     */
-    
+
+
     private Form_Home home;
     private SanPham_Form sanPham_Form;
     private ThongKe_Form thongKe_Form;
@@ -33,7 +31,7 @@ public class Main extends javax.swing.JFrame {
 
     public Main() {
         initComponents();
-        setBackground(new Color(0,0,0));
+        setBackground(new Color(0, 0, 0));
         home = new Form_Home();
         sanPham_Form = new SanPham_Form();
         thongKe_Form = new ThongKe_Form();
@@ -44,46 +42,36 @@ public class Main extends javax.swing.JFrame {
         khuyenMai_Form = new KhuyenMai_Form();
         doiMatKhau_Form = new DoiMatKhau_Form();
         dangXuatForm = new DangXuatForm();
-        
-        
-        
-        
+
         menu1.initMoving(Main.this);
         menu1.addEventMenuSelected(new EventMenuSelected() {
             @Override
             public void selected(int index) {
                 System.out.println("Menu clicked, index: " + index);
-                if(index == 0) {
+                if (index == 0) {
                     setForm(thongKe_Form);
-                } else if(index == 1) {
+                } else if (index == 1) {
                     setForm(sanPham_Form);
-                } 
-                else if(index == 2) {
+                } else if (index == 2) {
                     setForm(nhanVien_Form);
-                }
-                else if(index == 3) {
+                } else if (index == 3) {
                     setForm(hoaDon_Form);
-                }
-                else if(index == 4) {
+                } else if (index == 4) {
                     setForm(khachHangForm);
-                }
-                else if(index == 5) {
+                } else if (index == 5) {
                     setForm(lichSu_Form);
-                }
-                else if(index == 6) {
+                } else if (index == 6) {
                     setForm(khuyenMai_Form);
-                }
-                else if(index == 7) {
+                } else if (index == 7) {
                     setForm(doiMatKhau_Form);
-                }
-                else if(index == 8) {
+                } else if (index == 8) {
                     setForm(dangXuatForm);
                 }
             }
         });
         setForm(new JPanel());
     }
-    
+
     private void setForm(JComponent com) {
         mainPanel.removeAll();
         mainPanel.add(com);
