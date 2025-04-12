@@ -10,49 +10,61 @@ import java.util.List;
  *
  * @author phamd
  */
-public class PhanTrang<T> {
-    private List<T> dataList;
+public class PhanTrang {
+
+    private int currentPage = 1;
     private int pageSize;
-    private int currentPage;
-    
-    public PhanTrang(List<T> dataList, int pageSize){
-        this.dataList = dataList;
+    private int totalItems = 0;
+
+    public PhanTrang(int pageSize) {
         this.pageSize = pageSize;
-        this.currentPage = 1;
     }
-    
-    public List<T> getCurrentPageData(){
-        int fromIndex = (currentPage - 1)*pageSize;
-        int toIndex = Math.min(fromIndex + pageSize, dataList.size());
-        return dataList.subList(fromIndex, toIndex);
+
+    public void setTotalItems(int totalItems) {
+        this.totalItems = totalItems;
     }
-    
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public int getOffset() {
+        return (currentPage - 1) * pageSize;
+    }
+
+    public int getTotalPages() {
+        return (int) Math.ceil((double) totalItems / pageSize);
+    }
+
+    public void firstPage() {
+        currentPage = 1;
+    }
+
+    public void lastPage() {
+        currentPage = getTotalPages();
+    }
+
     public void nextPage() {
         if (currentPage < getTotalPages()) {
             currentPage++;
         }
     }
-    
-    public void previousPage() {
+
+    public void prevPage() {
         if (currentPage > 1) {
             currentPage--;
         }
     }
-    
-    public void firstPage() {
-        currentPage = 1;
-    }
-    
-    public void lastPage() {
-        currentPage = getTotalPages();
-    }
-    
-    public int getTotalPages() {
-        return (int) Math.ceil((double) dataList.size() / pageSize);
-    }
-    
-    public int getCurrentPage() {
-        return currentPage;
+
+    public boolean isFirstPage() {
+        return currentPage == 1;
     }
 
+    public boolean isLastPage() {
+        return currentPage == getTotalPages();
+    }
 }

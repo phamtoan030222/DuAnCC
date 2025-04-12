@@ -28,4 +28,8 @@ public class ValidationUtil {
         return ma.matches("^[A-Z]{2}\\d{3}$");
     }
     
+    public static boolean kiemTraDinhDangEmail(String email) {
+        return email.matches("^[a-zA-Z0-9.%+-]+@gmaill\\.com$");
+    }
+    
 }
