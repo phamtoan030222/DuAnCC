@@ -12,14 +12,13 @@ import javaapplication8.form.LichSu_Form;
 import javaapplication8.form.NhanVien_Form;
 import javaapplication8.form.SanPham_Form;
 import javaapplication8.form.ThongKe_Form;
+import javaapplication8.model.Model_NhanVien;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 public class Main extends javax.swing.JFrame {
-    /**
-     * Tạo form
-     */
-    
+
+
     private Form_Home home;
     private SanPham_Form sanPham_Form;
     private ThongKe_Form thongKe_Form;
@@ -31,59 +30,52 @@ public class Main extends javax.swing.JFrame {
     private DoiMatKhau_Form doiMatKhau_Form;
     private DangXuatForm dangXuatForm;
 
-    public Main() {
+    public Main(Model_NhanVien nv) {
         initComponents();
-        setBackground(new Color(0,0,0));
+        setBackground(new Color(0, 0, 0));
         home = new Form_Home();
         sanPham_Form = new SanPham_Form();
         thongKe_Form = new ThongKe_Form();
         nhanVien_Form = new NhanVien_Form();
-        hoaDon_Form = new HoaDon_Form();
+        
+        hoaDon_Form = new HoaDon_Form(nv);
+        hoaDon_Form.setNhanVien(nv);
         khachHangForm = new KhachHangForm();
         lichSu_Form = new LichSu_Form();
         khuyenMai_Form = new KhuyenMai_Form();
         doiMatKhau_Form = new DoiMatKhau_Form();
         dangXuatForm = new DangXuatForm();
-        
-        
-        
-        
+        header1.setNhanVien(nv);
+
         menu1.initMoving(Main.this);
         menu1.addEventMenuSelected(new EventMenuSelected() {
             @Override
             public void selected(int index) {
                 System.out.println("Menu clicked, index: " + index);
-                if(index == 0) {
+                if (index == 0) {
                     setForm(thongKe_Form);
-                } else if(index == 1) {
+                } else if (index == 1) {
                     setForm(sanPham_Form);
-                } 
-                else if(index == 2) {
+                } else if (index == 2) {
                     setForm(nhanVien_Form);
-                }
-                else if(index == 3) {
+                } else if (index == 3) {
                     setForm(hoaDon_Form);
-                }
-                else if(index == 4) {
+                } else if (index == 4) {
                     setForm(khachHangForm);
-                }
-                else if(index == 5) {
+                } else if (index == 5) {
                     setForm(lichSu_Form);
-                }
-                else if(index == 6) {
+                } else if (index == 6) {
                     setForm(khuyenMai_Form);
-                }
-                else if(index == 7) {
+                } else if (index == 7) {
                     setForm(doiMatKhau_Form);
-                }
-                else if(index == 8) {
+                } else if (index == 8) {
                     setForm(dangXuatForm);
                 }
             }
         });
         setForm(new JPanel());
     }
-    
+
     private void setForm(JComponent com) {
         mainPanel.removeAll();
         mainPanel.add(com);
@@ -115,21 +107,24 @@ public class Main extends javax.swing.JFrame {
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder1Layout.createSequentialGroup()
                 .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder1Layout.createSequentialGroup()
+                    .addGroup(panelBorder1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 793, Short.MAX_VALUE)
                         .addComponent(header1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
-                    .addComponent(mainPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1007, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelBorder1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(panelBorder1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(header1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -153,7 +148,8 @@ public class Main extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                Model_NhanVien nv = null;
+                new Main(nv).setVisible(true);
             }
         });
     }
