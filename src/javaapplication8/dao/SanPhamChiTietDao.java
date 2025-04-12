@@ -32,6 +32,7 @@ public class SanPhamChiTietDao {
               JOIN Chat_Lieu ON Chat_Lieu.ID = San_Pham_Chi_Tiet.ID_CHAT_LIEU
               JOIN Kich_Thuoc ON Kich_Thuoc.ID = San_Pham_Chi_Tiet.ID_KICH_THUOC
               WHERE San_Pham_Chi_Tiet.DA_XOA = 0 AND San_Pham.DA_XOA = 0 AND Mau_Sac.DA_XOA = 0 AND Chat_Lieu.DA_XOA = 0 AND Kich_Thuoc.DA_XOA = 0 
+              ORDER BY San_Pham_Chi_Tiet.ID DESC
               """;
         try {
             ps = conn.prepareStatement(sql);

@@ -46,5 +46,15 @@ public class SanPhamServiceImpl implements SanPhamService {
     public boolean updateDaXoaSanPham(int id) {
         return dao.updateDaXoaSanPham(id);
     }
+
+    @Override
+    public List<Model_SanPham> loadTableTimKiemTuongDoi(String keyword, int daXoa) {
+        return dao.loadTableTimKiemTuongDoi(keyword, daXoa);
+    }
+    
+    @Override
+    public boolean khoiPhucSanPhamDaXoa(int id) {
+        return dao.khoiPhucSanPhamDaXoa(id);
+    }
     
 }

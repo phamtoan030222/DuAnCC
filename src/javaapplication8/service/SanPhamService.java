@@ -23,5 +23,8 @@ public interface SanPhamService {
     boolean capNhatSanPham(String ma, String ten, String moTa);
     
     boolean updateDaXoaSanPham(int id);
-   
+
+    List<Model_SanPham> loadTableTimKiemTuongDoi(String keyword, int daXoa);
+    
+    boolean khoiPhucSanPhamDaXoa(int id);
 }

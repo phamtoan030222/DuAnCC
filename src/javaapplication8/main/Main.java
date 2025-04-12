@@ -45,9 +45,7 @@ public class Main extends javax.swing.JFrame {
         khuyenMai_Form = new KhuyenMai_Form();
         doiMatKhau_Form = new DoiMatKhau_Form();
         dangXuatForm = new DangXuatForm();
-        
         header1.setNhanVien(nv);
-        
 
         menu1.initMoving(Main.this);
         menu1.addEventMenuSelected(new EventMenuSelected() {

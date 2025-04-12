@@ -35,19 +35,19 @@ public class ThemSanPhamChiTiet extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         loadComboboxFromParent(); //Load dữ liệu từ parent
-        
-        // Xử lý focus
-    txt_dongiaspct.addFocusListener(new java.awt.event.FocusAdapter() {
-        public void focusGained(java.awt.event.FocusEvent evt) {
-            lbl_tbgia.setText("");
-        }
-    });
 
-    txt_soluongspct.addFocusListener(new java.awt.event.FocusAdapter() {
-        public void focusGained(java.awt.event.FocusEvent evt) {
-            lbl_tbsoluong.setText("");
-        }
-    });
+        // Xử lý focus
+        txt_dongiaspct.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                lbl_tbgia.setText("");
+            }
+        });
+
+        txt_soluongspct.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                lbl_tbsoluong.setText("");
+            }
+        });
     }
 
     /**
@@ -385,7 +385,8 @@ public class ThemSanPhamChiTiet extends javax.swing.JFrame {
         String tenKichThuoc = cbo_kichthuoc.getSelectedItem().toString();
 
         // Lấy ID từ HashMap (cần tạo HashMap ở bước trước)
-        int idSP = parentFrame.getSanPhamMap().get(tenSanPham);
+
+        int idSP = parentFrame.getSanPhamDangBanMap().get(tenSanPham);
         int idMauSac = parentFrame.getMauSacMap().get(tenMauSac);
         int idChatLieu = parentFrame.getChatLieuMap().get(tenChatLieu);
         int idKichThuoc = parentFrame.getKichThuocMap().get(tenKichThuoc);
@@ -424,8 +425,12 @@ public class ThemSanPhamChiTiet extends javax.swing.JFrame {
             boolean them = service_spChiTiet.addSanPhamChiTiet(ma, idSP, idMauSac, idChatLieu, idKichThuoc, donGia, soLuong);
             if (them) {
                 JOptionPane.showMessageDialog(this, "Thêm sản phẩm chi tiết thành công.");
-                // Cập nhật lại bảng sau khi thêm
-                parentFrame.fillTable_SanPhamChiTiet(service_spChiTiet.getAllSanPhamChiTiet());
+
+//                parentFrame.fillTable_SanPhamChiTiet(service_spChiTiet.getAllSanPhamChiTiet());
+                  parentFrame.capNhatBangSanPhamChiTiet(service_spChiTiet.getAllSanPhamChiTiet());
+                  parentFrame.macDinhCboSPCT();
+
+
                 // ✅ Gọi callback để form cha cập nhật bảng
                 if (onCloseCallback != null) {
                     onCloseCallback.run();
@@ -442,23 +447,23 @@ public class ThemSanPhamChiTiet extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_themspctActionPerformed
 
     private void txt_dongiaspctActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_dongiaspctActionPerformed
-        
+
     }//GEN-LAST:event_txt_dongiaspctActionPerformed
 
     private void txt_soluongspctActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_soluongspctActionPerformed
-       
+
     }//GEN-LAST:event_txt_soluongspctActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       // Gọi callback nếu có để load lại dữ liệu ở form cha
-    if (onCloseCallback != null) {
-        onCloseCallback.run();
-    }
+        // Gọi callback nếu có để load lại dữ liệu ở form cha
+        if (onCloseCallback != null) {
+            onCloseCallback.run();
+        }
         parentFrame.xuLyChonRadioButton();
         parentFrame.fillTable_SP(service_sp.layDanhSachSanPhamDangBan());
-        
-    // Đóng form hiện tại
-    this.dispose();
+
+        // Đóng form hiện tại
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -501,7 +506,8 @@ public class ThemSanPhamChiTiet extends javax.swing.JFrame {
     private void loadComboboxFromParent() {
         // San phẩm
         cbo_sanpham.removeAllItems();
-        for (String ten : parentFrame.getSanPhamMap().keySet()) {
+
+        for (String ten : parentFrame.getSanPhamDangBanMap().keySet()) {
             cbo_sanpham.addItem(ten);
         }
 
