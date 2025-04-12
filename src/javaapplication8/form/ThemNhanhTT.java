@@ -4,6 +4,13 @@
  */
 package javaapplication8.form;
 
+import java.util.function.Consumer;
+import javaapplication8.service.SanPhamService;
+import javaapplication8.service.SanPhamThuocTinhService;
+import javaapplication8.service.serviceimpl.SanPhamServiceImpl;
+import javaapplication8.service.serviceimpl.SanPhamThuocTinhServiceImpl;
+import javaapplication8.until.CodeGeneratorUtil;
+import javaapplication8.until.ValidationUtil;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,16 +19,20 @@ import javax.swing.JOptionPane;
  */
 public class ThemNhanhTT extends javax.swing.JFrame {
 
+    private ThemSanPhamChiTiet parentFrame; // Thay JFrame bằng SanPham_Form
     private String selectedTable;
     private final SanPhamThuocTinhService service_spthuoctinh = new SanPhamThuocTinhServiceImpl();
-      // Thêm biến callback để gọi từ HomeView
+    // Thêm biến callback để gọi từ HomeView
     private Runnable onCloseCallback;
+    private Consumer<String> onTenMoiCallback;
 
-     public ThemNhanhTT(HomeView parent, Runnable onCloseCallback) {
+
+
+    public ThemNhanhTT(ThemSanPhamChiTiet parent, Runnable onCloseCallback) {
         this.parentFrame = parent;
         this.onCloseCallback = onCloseCallback;
         initComponents();
-         setLocationRelativeTo(null);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -31,6 +42,10 @@ public class ThemNhanhTT extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
     }
+    
+    public void setOnTenMoiCallback(Consumer<String> callback) {
+    this.onTenMoiCallback = callback;
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -117,14 +132,25 @@ public class ThemNhanhTT extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_themnhanhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themnhanhActionPerformed
+        String ma = null;
+
         String ten = txt_giatrithemnhanh.getText().trim();
         String tableName = getSelectedTableName();
+        if (tableName.equals("Mau_Sac")) {
+            ma = CodeGeneratorUtil.generateMauSac();
+        } else if (tableName.equals("Chat_Lieu")) {
+            ma = CodeGeneratorUtil.generateChatLieu();
+        } else if (tableName.equals("Kich_Thuoc")) {
+            ma = CodeGeneratorUtil.generateKichThuoc();
+    }
+        
 
         // Kiểm tra tên không được để trống
         if (ValidationUtil.isEmpty(ten)) {
             lbl_thongbaothemnhanh.setText("Tên thuộc tính không được để trống");
             return;
         }
+        
 
         // Kiểm tra tên thuộc tính đã tồn tại chưa
         if (service_spthuoctinh.kiemTraTenThuocTinhDaTonTai(tableName, ten)) {
@@ -135,13 +161,15 @@ public class ThemNhanhTT extends javax.swing.JFrame {
         // Xác nhận thêm mới
         int luachon = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm thuộc tính không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
         if (luachon == JOptionPane.YES_OPTION) {
-            boolean them = service_spthuoctinh.addThuocTinh(tableName, ten);
-           if (them) {
-                JOptionPane.showMessageDialog(this, "Thêm thuộc tính sản phẩm thành công.");
+            boolean them = service_spthuoctinh.addThuocTinh(tableName, ma, ten);
+            if (them) {
+                JOptionPane.showMessageDialog(this, "Thêm thuộc tính thành công.");
                 // Gọi callback nếu đã được truyền vào
                 if (onCloseCallback != null) {
                     onCloseCallback.run();  // Gọi phương thức callback
+                    onTenMoiCallback.accept(ten); // Gửi tên vừa thêm về
                 }
+                
                 this.dispose();  // Đóng cửa sổ ThemNhanhTT
             } else {
                 JOptionPane.showMessageDialog(this, "Thêm thất bại.");
@@ -174,6 +202,8 @@ public class ThemNhanhTT extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ThemNhanhTT.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

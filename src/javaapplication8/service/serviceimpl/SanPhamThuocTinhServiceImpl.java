@@ -22,4 +22,44 @@ public class SanPhamThuocTinhServiceImpl implements SanPhamThuocTinhService {
         return dao.getThuocTinh(tableName);
     }
 
+    @Override
+    public boolean kiemTraTenThuocTinhDaTonTai(String tableName, String tenThuocTinh) {
+        return dao.kiemTraTenThuocTinhDaTonTai(tableName, tenThuocTinh);
+    }
+
+    @Override
+    public boolean addThuocTinh(String tableName, String ma, String ten) {
+        return dao.addThuocTinh(tableName, ma, ten);
+    }
+
+    @Override
+    public List<SanPham_ThuocTinh> getLoaiSanPham() {
+        return dao.getThuocTinh("San_Pham");
+    }
+
+    @Override
+    public List<SanPham_ThuocTinh> getLoaiMauSac() {
+        return dao.getThuocTinh("Mau_Sac");
+    }
+
+    @Override
+    public List<SanPham_ThuocTinh> getLoaiKichThuoc() {
+        return dao.getThuocTinh("Kich_Thuoc");
+    }
+
+    @Override
+    public List<SanPham_ThuocTinh> getLoaiChatLieu() {
+        return dao.getThuocTinh("Chat_Lieu");
+    }
+
+    @Override
+    public boolean updateThuocTinh(String tableName, String tenMoi, String ma) {
+        return dao.updateThuocTinh(tableName, tenMoi, ma);
+    }
+
+    @Override
+    public boolean xoaThuocTinhSanPham(String tableName, int id) {
+        return dao.xoaThuocTinhSanPham(tableName, id);
+    }
+
 }

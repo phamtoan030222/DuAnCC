@@ -9,30 +9,27 @@ package javaapplication8.model;
  * @author phamd
  */
 public class SanPham_ChiTiet {
+
     private int id;
     private String maSp;
     private String tenSp;
-    private String loaiSp;
     private String kichThuoc;
     private String mauSac;
     private String chatLieu;
     private String donGia;
     private int soLuong;
     private boolean daXoa;
-    
-    
-
-    
 
     public SanPham_ChiTiet() {
     }
 
-    public SanPham_ChiTiet(String maSp, String loaiSp, String kichThuoc, String mauSac, String chatLieu, String donGia, int soLuong) {
+
+    public SanPham_ChiTiet(String maSp, String tenSp, String mauSac, String chatLieu, String kichThuoc, String donGia, int soLuong) {
         this.maSp = maSp;
-        this.loaiSp = loaiSp;
-        this.kichThuoc = kichThuoc;
+        this.tenSp = tenSp;
         this.mauSac = mauSac;
         this.chatLieu = chatLieu;
+        this.kichThuoc = kichThuoc;
         this.donGia = donGia;
         this.soLuong = soLuong;
     }
@@ -51,14 +48,6 @@ public class SanPham_ChiTiet {
 
     public void setTenSp(String tenSp) {
         this.tenSp = tenSp;
-    }
-
-    public String getLoaiSp() {
-        return loaiSp;
-    }
-
-    public void setLoaiSp(String loaiSp) {
-        this.loaiSp = loaiSp;
     }
 
     public String getKichThuoc() {
@@ -100,7 +89,7 @@ public class SanPham_ChiTiet {
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
     }
-    
+
     public boolean isDaXoa() {
         return daXoa;
     }
@@ -116,5 +105,5 @@ public class SanPham_ChiTiet {
     public void setId(int id) {
         this.id = id;
     }
-    
+
 }
